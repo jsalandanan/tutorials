@@ -6,6 +6,9 @@ function love.load()
     requireFiles(object_files)
 
     circle = HyperCircle(400, 300, 50, 10, 120)
+
+    test = oop_exercise_10()
+    test:sum()
 end
 
 function love.update(dt)
@@ -14,6 +17,7 @@ end
 
 function love.draw()
   circle:draw()
+  love.graphics.print(test.c)
 end
 
 function recursiveEnumerate(folder, file_list)
@@ -33,4 +37,13 @@ function requireFiles(files)
         local file = file:sub(1, -5)
         require(file)
     end
+end
+
+function oop_exercise_10()
+  return {
+    a = 1,
+    b = 2,
+    c = 3,
+    sum = function(self) self.c = self.a + self.b + self.c end,
+  }
 end
