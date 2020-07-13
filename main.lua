@@ -1,19 +1,26 @@
 Object = require 'libraries/classic/classic'
+Input = require 'libraries/boipushy/Input'
 
 function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
 
-    circle = HyperCircle(400, 300, 50, 10, 120)
+    input = Input()
+    input:bind('kp+', 'sum')
+
+
+    sum = 0
 end
 
 function love.update(dt)
-  circle.update(dt)
+    if input:down('sum', 0.25) then
+      sum = sum + 1
+    end
 end
 
 function love.draw()
-  circle:draw()
+  love.graphics.print(sum)
 end
 
 function recursiveEnumerate(folder, file_list)
