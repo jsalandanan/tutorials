@@ -1,26 +1,17 @@
 Object = require 'libraries/classic/classic'
 Input = require 'libraries/boipushy/Input'
+Timer = require 'libraries/hump/timer'
 
 function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
-
-    input = Input()
-    input:bind('kp+', 'sum')
-
-
-    sum = 0
 end
 
 function love.update(dt)
-    if input:down('sum', 0.25) then
-      sum = sum + 1
-    end
 end
 
 function love.draw()
-  love.graphics.print(sum)
 end
 
 function recursiveEnumerate(folder, file_list)
