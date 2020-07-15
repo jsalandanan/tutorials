@@ -8,21 +8,21 @@ function love.load()
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
 
-    timer = Timer()
+    input = Input()
+    input:bind('s', 'shrink')
+    input:bind('e', 'expand')
+    timer = EnhancedTimer()
     circle = {radius = 24}
-
-    flip = true
-
-    timer:after(1, function(f)
-        if flip then timer:tween(3, circle, {radius = 96}, 'in-out-cubic') flip = false
-        else timer:tween(3, circle, {radius = 24}, 'in-out-cubic') flip = true end
-        timer:after(4, f)
-        -- love.graphics.print(circle.radius)
-    end)
 
 end
 function love.update(dt)
     timer:update(dt)
+    if input:pressed('shrink') then
+        timer:tween('shrink-tag', 3, circle, {radius=24}, 'in-out-cubic')
+    end 
+    if input:pressed('expand') then
+        timer:tween('expand-tag', 3, circle, {radius=96}, 'in-out-cubic')
+    end
 end
 
 function love.draw()
