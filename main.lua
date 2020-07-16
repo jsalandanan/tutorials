@@ -2,23 +2,25 @@ Object = require 'libraries/classic/classic'
 Input = require 'libraries/boipushy/Input'
 Timer = require 'libraries/hump/timer'
 EnhancedTimer = require 'libraries/EnhancedTimer/EnhancedTimer'
+M = require 'libraries/Moses/moses'
 
 function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
 
-    timer = Timer()
-    a = 10
-    timer:tween(1, _G, {a = 20}, 'linear')
+    a = {1, 2, '3', 4, '5', 6, 7, true, 9, 10, 11, a = 1, b = 2, c = 3, {1, 2, 3}}
+    b = {1, 1, 3, 4, 5, 6, 7, false}
+    c = {'1', '2', '3', 4, 5, 6}
+    d = {1, 4, 3, 4, 5, 6}
+
+    M.each(a, print)
 end
 
 function love.update(dt)
-    timer:update(dt)
 end
 
 function love.draw()
-    love.graphics.print(a)
 end
 
 function recursiveEnumerate(folder, file_list)
@@ -39,3 +41,4 @@ function requireFiles(files)
         require(file)
     end
 end
+
