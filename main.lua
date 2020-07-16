@@ -15,8 +15,8 @@ function love.load()
     d = {1, 4, 3, 4, 5, 6}
 
 
-    duplicate_free = M.union(b, c, d)
-    for k, v in ipairs(duplicate_free) do
+    common_vals = M.intersection(b, d)
+    for k, v in ipairs(common_vals) do
         print(v)
     end
 end
