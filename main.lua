@@ -14,12 +14,25 @@ function love.load()
     c = {'1', '2', '3', 4, 5, 6}
     d = {1, 4, 3, 4, 5, 6}
 
-    for k,v in ipairs(d) do
+    for k,v in ipairs(a) do
         print(k, v)
     end
     print('line break')
-    d = M.map(d, function(v) return v + 1 end)
-    for k,v in ipairs(d) do
+
+    a = M.map(a,
+        function(v)
+            if type(v) == 'number' then
+                return v * 2
+            elseif type(v) == 'string' then
+                return v .. 'xD'
+            elseif type(v) == 'boolean' then
+                return not v
+            elseif type(v) == 'table' then
+                return nil
+            end
+        end)
+
+    for k,v in ipairs(a) do
         print(k, v)
     end
 end
