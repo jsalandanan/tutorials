@@ -14,9 +14,8 @@ function love.load()
     c = {'1', '2', '3', 4, 5, 6}
     d = {1, 4, 3, 4, 5, 6}
 
-    if M.include(b, 9) then
-        print('table contains the value 9')
-    end
+    -- not found tho
+    print(M.find(c, 7))
 end
 
 function love.update(dt)
