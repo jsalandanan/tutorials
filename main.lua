@@ -14,8 +14,17 @@ function love.load()
     c = {'1', '2', '3', 4, 5, 6}
     d = {1, 4, 3, 4, 5, 6}
 
-    -- not found tho
-    print(M.find(c, 7))
+    for k,v in ipairs(d) do
+        print(k,v)
+    end
+
+    print('break')
+    d = M.select(d, function(v) return v < 5 end)
+
+    for k,v in ipairs(d) do
+        print(k,v)
+    end
+
 end
 
 function love.update(dt)
