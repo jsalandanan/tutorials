@@ -15,8 +15,10 @@ function love.load()
     d = {1, 4, 3, 4, 5, 6}
 
 
-    print(M.all(c, function(v) return type(v) == 'number' end))
-    print(M.all(d, function(v) return type(v) == 'number' end))
+    shuffled_d = M.shuffle(d)
+    for k, v in ipairs(shuffled_d) do
+        print(v)
+    end
 end
 
 function love.update(dt)
