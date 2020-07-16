@@ -15,8 +15,8 @@ function love.load()
     d = {1, 4, 3, 4, 5, 6}
 
 
-    filtered_d = M.select(d, function(v) return v ~= 1 and v ~= 4 end)
-    for k, v in ipairs(filtered_d) do
+    duplicate_free = M.union(b, c, d)
+    for k, v in ipairs(duplicate_free) do
         print(v)
     end
 end
