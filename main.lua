@@ -14,17 +14,9 @@ function love.load()
     c = {'1', '2', '3', 4, 5, 6}
     d = {1, 4, 3, 4, 5, 6}
 
-    for k,v in ipairs(c) do
-        print(k,v)
-    end
 
-    print('break')
-    c = M.select(c, function(v) return type(v) == 'string' end)
-
-    for k,v in ipairs(c) do
-        print(k,v)
-    end
-
+    print(M.all(c, function(v) return type(v) == 'number' end))
+    print(M.all(d, function(v) return type(v) == 'number' end))
 end
 
 function love.update(dt)
