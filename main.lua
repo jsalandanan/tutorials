@@ -15,8 +15,8 @@ function love.load()
     d = {1, 4, 3, 4, 5, 6}
 
 
-    common_vals = M.intersection(b, d)
-    for k, v in ipairs(common_vals) do
+    combined = M.append(b, d)
+    for k, v in ipairs(combined) do
         print(v)
     end
 end
