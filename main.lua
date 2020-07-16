@@ -15,7 +15,7 @@ function love.load()
     d = {1, 4, 3, 4, 5, 6}
 
 
-    shuffled_d = M.shuffle(d)
+    shuffled_d = M.reverse(d)
     for k, v in ipairs(shuffled_d) do
         print(v)
     end
