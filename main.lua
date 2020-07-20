@@ -22,15 +22,34 @@ function love.load()
 
     love.math.setRandomSeed(love.timer.getTime())
 
+    timer = Timer()
+    input = Input()
+    input:bind('d', 'delete_rectangle')
+
     stage = Stage()
     area = Area(stage)
 
-    timer = Timer()
+    rectanglesCreate(area)
+end
+
+function rectanglesCreate(area)
+    for i=1,10 do
+        area:addGameObject('Rectangle', love.math.random(0, 600), love.math.random(0, 800))
+    end
 end
 
 function love.update(dt)
-    area:update(dt)
     timer:update(dt)
+
+    if input:pressed('delete_rectangle') then
+        local index = love.math.random(#area.game_objects)
+        area.game_objects[index].dead = true
+    end
+
+    if #area.game_objects == 0 then
+        rectanglesCreate(area)
+    end
+    area:update(dt)
 end
 
 function love.draw()
