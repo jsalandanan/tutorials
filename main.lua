@@ -26,7 +26,6 @@ function love.load()
     area = Area(stage)
 
     timer = Timer()
-
 end
 
 function love.update(dt)

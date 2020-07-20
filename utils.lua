@@ -15,3 +15,10 @@ function random(min, max)
         return love.math.random()*(max - min) + min
     end
 end
+
+function printAll(...)
+  local arg = {...}
+  for i=1, #arg do
+    print(arg[i])
+  end
+end
