@@ -26,11 +26,6 @@ function love.load()
     area = Area(stage)
 
     timer = Timer()
-    timer:every(2, function()
-        area:addGameObject('Circle', love.math.random()*100, love.math.random()*100, {radius = 25})
-    end)
-
-    -- set circles to kill themselves every 2-4 sec
 
 end
 

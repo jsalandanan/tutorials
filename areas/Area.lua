@@ -23,3 +23,13 @@ function Area:addGameObject(game_object_type, x, y, opts)
     table.insert(self.game_objects, game_object)
     return game_object
 end
+
+function Area:getGameObjects(f)
+  local objectsOfInterest = {}
+  for _, gameObject in ipairs(self.game_objects) do
+    if f(gameObject) then
+      table.insert(objectsOfInterest, gameObject)
+    end
+  end
+  return objectsOfInterest
+end
