@@ -22,3 +22,12 @@ function printAll(...)
     print(arg[i])
   end
 end
+
+function printText(...)
+  local arg = {...}
+  local strToPrint = ''
+  for i=1, #arg do
+    strToPrint = strToPrint .. arg[i]
+  end
+  print(strToPrint)
+end
