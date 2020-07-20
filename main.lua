@@ -4,17 +4,25 @@ Timer = require 'libraries/hump/timer'
 EnhancedTimer = require 'libraries/EnhancedTimer/EnhancedTimer'
 M = require 'libraries/Moses/moses'
 
-require('objects/Room')
-require('objects/CircleRoom')
-require('objects/RectangleRoom')
-require('objects/PolygonRoom')
+love.math.setRandomSeed(love.timer.getTime())
 
+require('utils')
 
+require('rooms/Room')
+require('rooms/CircleRoom')
+require('rooms/RectangleRoom')
+require('rooms/PolygonRoom')
+
+require('objects/GameObject')
+
+require('areas/Area')
 
 function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
+
+
 
     current_room = nil
 
@@ -22,6 +30,10 @@ function love.load()
     roomInput:bind('f1', 'circleRoom')
     roomInput:bind('f2', 'rectangleRoom')
     roomInput:bind('f3', 'polygonRoom')
+
+    currentRoom = CircleRoom('CircleRoom', 400, 300, 25)
+    a = Area(currentRoom)
+    go = GameObject(a)
 
 end
 
