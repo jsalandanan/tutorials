@@ -4,14 +4,12 @@ Timer = require 'libraries/hump/timer'
 EnhancedTimer = require 'libraries/EnhancedTimer/EnhancedTimer'
 M = require 'libraries/Moses/moses'
 
-love.math.setRandomSeed(love.timer.getTime())
+
 
 require('utils')
 
 require('rooms/Room')
-require('rooms/CircleRoom')
-require('rooms/RectangleRoom')
-require('rooms/PolygonRoom')
+require('rooms/Stage')
 
 require('objects/GameObject')
 
@@ -22,35 +20,27 @@ function love.load()
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
 
+    love.math.setRandomSeed(love.timer.getTime())
 
+    stage = Stage()
+    area = Area(stage)
 
-    current_room = nil
+    timer = Timer()
+    timer:every(2, function()
+        area:addGameObject('Circle', love.math.random()*100, love.math.random()*100, {radius = 25})
+    end)
 
-    roomInput = Input()
-    roomInput:bind('f1', 'circleRoom')
-    roomInput:bind('f2', 'rectangleRoom')
-    roomInput:bind('f3', 'polygonRoom')
-
-    currentRoom = CircleRoom('CircleRoom', 400, 300, 25)
-    a = Area(currentRoom)
-    go = GameObject(a)
+    -- set circles to kill themselves every 2-4 sec
 
 end
 
 function love.update(dt)
-    if current_room then current_room:update(dt) end
-
-    if roomInput:down('circleRoom') then
-        gotoRoom('CircleRoom', 400, 300, 25)
-    elseif roomInput:down('rectangleRoom') then
-        gotoRoom('RectangleRoom', 400, 300, 40, 20)
-    elseif roomInput:down('polygonRoom') then
-        gotoRoom('PolygonRoom', {100, 100, 200, 100, 150, 200})
-    end
+    area:update(dt)
+    timer:update(dt)
 end
 
 function love.draw()
-    if current_room then current_room:draw() end
+    area:draw()
 end
 
 function gotoRoom(room_type, ...)
@@ -76,4 +66,3 @@ function requireFiles(files)
         require(file)
     end
 end
-

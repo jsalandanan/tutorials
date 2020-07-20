@@ -9,7 +9,6 @@ function GameObject:new(area, x, y, opts)
     self.id = UUID()
     self.dead = false
     self.timer = Timer()
-    print(self.id)
 end
 
 function GameObject:update(dt)
