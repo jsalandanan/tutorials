@@ -6,3 +6,12 @@ function UUID()
     end
     return (("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"):gsub("[xy]", fn))
 end
+
+function random(min, max)
+    if not max then
+        return love.math.random()*min
+    else
+        if min > max then min, max = max, min end
+        return love.math.random()*(max - min) + min
+    end
+end
