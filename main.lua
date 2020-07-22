@@ -24,6 +24,13 @@ function love.load()
 
     stage = Stage()
     area = Area(stage)
+
+    area:addGameObject('Circle', 300, 400, {radius=10})
+    area:addGameObject('Circle', 400, 300, {radius=10})
+
+    local returned = area:getClosestGameObject(310, 410, 500, {'Circle'})
+    print(returned.x)
+    print(returned.y)
 end
 
 function love.update(dt)

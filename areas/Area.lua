@@ -51,3 +51,29 @@ function Area:queryCircleArea(x, y, radius, targetClasses)
 
   return withinObjects
 end
+
+function Area:getClosestGameObject(x, y, radius, targetClasses)
+  local closestObject = nil
+  local observedMin = nil
+  local rSquared = radius^2
+
+  for _, gameObject in ipairs(self.game_objects) do
+    for _, targetClass in ipairs(targetClasses) do
+      if gameObject:is(_G[targetClass]) then
+        dSquared = (x - gameObject.x)^2 + (y - gameObject.y)^2
+        if dSquared < rSquared then
+          if not closestObject and not observedMin then
+            closestObject = gameObject
+            observedMin = dSquared
+          else
+            if dSquared < observedMin then
+              closestObject = gameObject
+              observedMin = dSquared
+            end
+          end
+        end
+      end
+    end
+  end
+  return closestObject
+end
