@@ -24,29 +24,6 @@ function love.load()
 
     stage = Stage()
     area = Area(stage)
-
-    circlesCreate(area)
-end
-
-function circlesCreate(area)
-    if cleanup then timer:cancel(cleanup) end
-
-    for i=1,10 do
-        timer:after(0.25*i, function()
-            area:addGameObject('Circle', love.math.random(0, 500), love.math.random(0, 500), {radius=love.math.random(15, 35)})
-        end)
-    end
-
-    timer:after(2.5, function()
-        cleanup = timer:every(random(0.5, 1), function()
-            if #area.game_objects ~= 0 then
-                area.game_objects[love.math.random(1, #area.game_objects)].dead = true
-            end
-            if #area.game_objects == 0 then
-                circlesCreate(area)
-            end
-        end)
-    end)
 end
 
 function love.update(dt)

@@ -33,3 +33,21 @@ function Area:getGameObjects(f)
   end
   return objectsOfInterest
 end
+
+function Area:queryCircleArea(x, y, radius, targetClasses)
+  local withinObjects = {}
+  local rSquared = radius^2
+
+  for _, gameObject in ipairs(self.game_objects) do
+    for _, targetClass in ipairs(targetClasses) do
+      if gameObject:is(_G[targetClass]) then
+        dSquared = (x - gameObject.x)^2 + (y - gameObject.y)^2
+        if dSquared < rSquared then
+          table.insert(withinObjects, gameObject)
+        end
+      end
+    end
+  end
+
+  return withinObjects
+end
