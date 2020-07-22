@@ -4,8 +4,6 @@ Timer = require 'libraries/hump/timer'
 EnhancedTimer = require 'libraries/EnhancedTimer/EnhancedTimer'
 M = require 'libraries/Moses/moses'
 
-
-
 require('utils')
 
 require('rooms/Room')
@@ -23,32 +21,36 @@ function love.load()
     love.math.setRandomSeed(love.timer.getTime())
 
     timer = Timer()
-    input = Input()
-    input:bind('d', 'delete_rectangle')
 
     stage = Stage()
     area = Area(stage)
 
-    rectanglesCreate(area)
+    circlesCreate(area)
 end
 
-function rectanglesCreate(area)
+function circlesCreate(area)
+    if cleanup then timer:cancel(cleanup) end
+
     for i=1,10 do
-        area:addGameObject('Rectangle', love.math.random(0, 600), love.math.random(0, 800))
+        timer:after(0.25*i, function()
+            area:addGameObject('Circle', love.math.random(0, 500), love.math.random(0, 500), {radius=love.math.random(15, 35)})
+        end)
     end
+
+    timer:after(2.5, function()
+        cleanup = timer:every(random(0.5, 1), function()
+            if #area.game_objects ~= 0 then
+                area.game_objects[love.math.random(1, #area.game_objects)].dead = true
+            end
+            if #area.game_objects == 0 then
+                circlesCreate(area)
+            end
+        end)
+    end)
 end
 
 function love.update(dt)
     timer:update(dt)
-
-    if input:pressed('delete_rectangle') then
-        local index = love.math.random(#area.game_objects)
-        area.game_objects[index].dead = true
-    end
-
-    if #area.game_objects == 0 then
-        rectanglesCreate(area)
-    end
     area:update(dt)
 end
 
