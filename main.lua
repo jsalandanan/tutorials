@@ -2,6 +2,7 @@ Object = require 'libraries/classic/classic'
 Timer = require 'libraries/enhanced_timer/EnhancedTimer'
 Input = require 'libraries/boipushy/Input'
 fn = require 'libraries/moses/moses'
+Camera = require 'libraries/hump/camera'
 
 require 'GameObject'
 require 'utils'
@@ -19,6 +20,8 @@ function love.load()
 
     timer = Timer()
     input = Input()
+    camera = Camera()
+    input:bind('f3', function() camera:shake(4, 60, 1) end)
 
     stage = Stage()
 
@@ -28,6 +31,7 @@ end
 function love.update(dt)
     timer:update(dt)
     stage:update(dt)
+    camera:update(dt)
     if current_room then current_room:update(dt) end
 end
 
