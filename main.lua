@@ -17,15 +17,19 @@ function love.load()
     timer = Timer()
     input = Input()
 
+    stage = Stage()
+
     resize(3)
 end
 
 function love.update(dt)
     timer:update(dt)
+    stage:update(dt)
     if current_room then current_room:update(dt) end
 end
 
 function love.draw()
+    stage:draw()
     if current_room then current_room:draw() end
 end
 
