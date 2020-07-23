@@ -1,52 +1,46 @@
 Object = require 'libraries/classic/classic'
+Timer = require 'libraries/enhanced_timer/EnhancedTimer'
 Input = require 'libraries/boipushy/Input'
-Timer = require 'libraries/hump/timer'
-EnhancedTimer = require 'libraries/EnhancedTimer/EnhancedTimer'
-M = require 'libraries/Moses/moses'
+fn = require 'libraries/moses/moses'
 
-require('utils')
-
-require('rooms/Room')
-require('rooms/Stage')
-
-require('objects/GameObject')
-
-require('areas/Area')
+require 'GameObject'
+require 'utils'
 
 function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
-
-    love.math.setRandomSeed(love.timer.getTime())
+    local room_files = {}
+    recursiveEnumerate('rooms', room_files)
+    requireFiles(room_files)
 
     timer = Timer()
+    input = Input()
 
-    stage = Stage()
-    area = Area(stage)
-
-    area:addGameObject('Circle', 300, 400, {radius=10})
-    area:addGameObject('Circle', 400, 300, {radius=10})
-
-    local returned = area:getClosestGameObject(310, 410, 500, {'Circle'})
-    print(returned.x)
-    print(returned.y)
+    resize(3)
 end
 
 function love.update(dt)
     timer:update(dt)
-    area:update(dt)
+    if current_room then current_room:update(dt) end
 end
 
 function love.draw()
-    area:draw()
+    if current_room then current_room:draw() end
 end
 
+function resize(s)
+    love.window.setMode(s*gw, s*gh)
+    sx, sy = s, s
+end
+
+-- Room --
 function gotoRoom(room_type, ...)
-    print(_G[room_type])
+    if current_room and current_room.destroy then current_room:destroy() end
     current_room = _G[room_type](...)
 end
 
+-- Load --
 function recursiveEnumerate(folder, file_list)
     local items = love.filesystem.getDirectoryItems(folder)
     for _, item in ipairs(items) do
