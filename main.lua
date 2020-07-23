@@ -14,6 +14,9 @@ function love.load()
     recursiveEnumerate('rooms', room_files)
     requireFiles(room_files)
 
+    love.graphics.setDefaultFilter('nearest')
+    love.graphics.setLineStyle('rough')
+
     timer = Timer()
     input = Input()
 
